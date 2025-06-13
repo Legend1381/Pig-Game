@@ -13,7 +13,6 @@ const btnHold = document.querySelector(".btn--hold");
 
 
 diceElement.classList.add("hidden");
-
 const totalScores = [0, 0];
 let currentScore = 0;
 let activePlayer = 0;
@@ -55,4 +54,23 @@ btnHold.addEventListener("click", () => {
     } else {
         switchPlayer();
     }
+})
+
+btnNew.addEventListener("click", () => {
+    diceElement.classList.add("hidden");
+    palyer0Element.classList.add("player--active");
+    palyer0Element.classList.remove("player--winner");
+    palyer1Element.classList.remove("player--active", "player--winner");
+    btnHold.classList.remove("hidden");
+    btnRoll.classList.remove("hidden");
+
+    current0Element.textContent = 0;
+    current1Element.textContent = 0;
+    score0Element.textContent = 0;
+    score1Element.textContent = 0;
+
+
+    totalScores[0] = totalScores[1] = 0;
+    currentScore = 0;
+    activePlayer = 0;
 })
