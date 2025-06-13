@@ -11,11 +11,21 @@ const btnNew = document.querySelector(".btn--new");
 const btnRoll = document.querySelector(".btn--roll");
 const btnHold = document.querySelector(".btn--hold");
 
+
+diceElement.classList.add("hidden");
+
 const totalScores = [0, 0];
 let currentScore = 0;
 let activePlayer = 0;
 
-diceElement.classList.add("hidden");
+const switchPlayer = () => {
+    currentScore = 0;
+    document.getElementById(`current--${activePlayer}`).textContent =
+      currentScore;
+    activePlayer = activePlayer === 0 ? 1 : 0;
+    palyer0Element.classList.toggle("player--active");
+    palyer1Element.classList.toggle("player--active");
+}
 
 btnRoll.addEventListener("click", () => {
   const dice = Math.trunc(Math.random() * 6) + 1;
@@ -27,10 +37,22 @@ btnRoll.addEventListener("click", () => {
     currentScore += dice;
     document.getElementById(`current--${activePlayer}`).textContent = currentScore;
   } else {
-    currentScore = 0;
-    document.getElementById(`current--${activePlayer}`).textContent = currentScore;
-    activePlayer = activePlayer === 0 ? 1 : 0;
-    palyer0Element.classList.toggle("player--active")
-    palyer1Element.classList.toggle("player--active")
+    switchPlayer();
   }
 });
+
+btnHold.addEventListener("click", () => {
+    totalScores[activePlayer] += currentScore;
+    document.getElementById(`score--${activePlayer}`).textContent = totalScores[activePlayer];
+    
+    if (totalScores[activePlayer] >= 10) {
+        btnHold.classList.add("hidden");
+        btnRoll.classList.add("hidden");
+        document.querySelector(`.player--${activePlayer}`).classList.add("player--winner");
+        document
+          .querySelector(`.player--${activePlayer}`)
+          .classList.remove("player--active");
+    } else {
+        switchPlayer();
+    }
+})
