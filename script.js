@@ -44,7 +44,7 @@ btnHold.addEventListener("click", () => {
     totalScores[activePlayer] += currentScore;
     document.getElementById(`score--${activePlayer}`).textContent = totalScores[activePlayer];
     
-    if (totalScores[activePlayer] >= 10) {
+    if (totalScores[activePlayer] >= 100) {
         btnHold.classList.add("hidden");
         btnRoll.classList.add("hidden");
         document.querySelector(`.player--${activePlayer}`).classList.add("player--winner");
